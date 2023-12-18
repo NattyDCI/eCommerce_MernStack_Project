@@ -2,6 +2,8 @@ import dotenv from "dotenv"; //this will help to have access to the variable fro
 import express from "express";
 import dbConnect from "../config/dbConnect.js";
 import userRoutes from "../routes/usersRoute.js";
+import { globalErrHandler, notFound } from "../middlewares/globalErrHandler.js";
+
 
 dotenv.config();
 
@@ -10,6 +12,10 @@ dbConnect();
 
 const app = express();
 
+//pass incoming data by default express is not passing the data into our server, so we need a middleware. 
+// in the following line
+app.use(express.json());
+
 // A middleware is a function that has access to the request object and the response and we can do some operations before and after.
 
 //Routes
@@ -17,10 +23,9 @@ console.log("Setting up user routes");
 
 app.use("/api/v1/users", userRoutes)
 
-app.use((err,req,res,next) => {
-    console.error(error.stack);
-    res.status(500).send("something went wrong!")
-});
 
+// err middleware;
+app.use(notFound);
+app.use(globalErrHandler);
 
 export default app; 
