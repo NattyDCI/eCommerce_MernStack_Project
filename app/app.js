@@ -2,6 +2,7 @@ import dotenv from "dotenv"; //this will help to have access to the variable fro
 import express from "express";
 import dbConnect from "../config/dbConnect.js";
 import userRoutes from "../routes/usersRoute.js";
+import productsRouter from "../routes/productsRoute.js";
 import { globalErrHandler, notFound } from "../middlewares/globalErrHandler.js";
 
 
@@ -22,7 +23,7 @@ app.use(express.json());
 console.log("Setting up user routes");
 
 app.use("/api/v1/users", userRoutes)
-
+app.use("api/v1/products", productsRouter)
 
 // err middleware;
 app.use(notFound);

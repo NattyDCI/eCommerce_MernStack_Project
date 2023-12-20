@@ -2,7 +2,8 @@ import User from "../model/User.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
-
+import { getTokenFromHeader } from "../utils/getTokenFromHeader.js";
+import { verifyToken } from "../utils/verifyToken.js";
 // @desc Register User
 // @route POST / api/v1/users/register
 // @access Private/Admin
@@ -25,6 +26,7 @@ export const registerUserCtrl = asyncHandler(async(req, res) => {
          email,
          password: hashedPassword,
      });
+     
      res.status(201).json({
          status:'success',
          message:'User Registered Succesfully',
@@ -63,6 +65,14 @@ export const loginUserCtrl = asyncHandler(async (req, res) => {
 
 
 export const getUserProfileCtrl = asyncHandler(async (req,res) => {
+    //get token from header
+    const token = getTokenFromHeader(req);
+    //verifdy token 
+
+    const verified = verifyToken(token);
+    console.log(verified);
+    console.log(req)
+  
     res.json({
         msg:"Welcome Profile Page"
     });
