@@ -42,7 +42,12 @@ const ProductSchema = new Schema({
             type: Number,
             required: true,
         },
-    
+
+        dimensions: {
+            type: String,
+            required: true,
+        },
+
         totalQty: {
             type: Number, 
             required: true,
@@ -56,7 +61,7 @@ const ProductSchema = new Schema({
     {
         timestamps: true,
         toJSON: {virtuals: true},
-    }
+    },
 );
 
 const Product = mongoose.model("Product", ProductSchema);

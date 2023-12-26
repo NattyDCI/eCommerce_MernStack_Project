@@ -6,13 +6,13 @@ import asyncHandler from "express-async-handler";
 // @access Private/Admin
 
 export const createProductCtrl = asyncHandler (async (req,res) => {
-        const { name, description, category, user, price, totalQty } = req.body;
+        const { name, description, category, user, price, dimensions, totalQty, totalSold } = req.body;
 
         // product exists
         const productExists = await Product.findOne({ name });
 
         if( productExists ) {
-            throw new Error('product exists')
+            throw new Error("product exists")
         } 
         // create the product
         const product = await Product.create({
@@ -21,14 +21,15 @@ export const createProductCtrl = asyncHandler (async (req,res) => {
             category, 
             user: req.userAuthId,
             price, 
-            totalQty
-
+            dimensions,
+            totalQty,
+            totalSold,
         });
         // push the product into category
         res.json({
-            status:'success',
-            message:'Product created Succesfully',
+            status:"success",
+            message:"Product created Succesfully",
             product,
-        })
+        });
 
 });
