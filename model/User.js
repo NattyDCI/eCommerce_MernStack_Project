@@ -18,13 +18,13 @@ const UserSchema = new Schema(
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Order",
+        ref: "Order", /* reference to the order model */
       },
     ],
     orders: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Wishlist",
+        ref: "Wishlist", 
       },
     ],
     isAdmin: {

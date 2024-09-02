@@ -32,7 +32,7 @@ const ProductSchema = new Schema({
                 default: "https://mnc-img-01.sfo2.cdn.digitaloceanspaces.com/wp-content/uploads/sites/4/2017/08/serenade300x300-150x150@2x.jpg"
             }
         ],
-
+//this is called referencing, we are using the id of the reviews.
         reviews: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Review",
@@ -52,11 +52,16 @@ const ProductSchema = new Schema({
             type: Number, 
             required: true,
         },
+
         totalSold: {
             type: Number,
             required: true,
             default: 0,
-        },   
+        }, 
+        text: {
+            type: String,
+            required: true
+        }  
     },
     {
         timestamps: true,
@@ -65,5 +70,6 @@ const ProductSchema = new Schema({
 );
 
 const Product = mongoose.model("Product", ProductSchema);
+
 
 export default Product;
