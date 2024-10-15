@@ -19,8 +19,7 @@ app.use(express.json());
 
 // A middleware is a function that has access to the request object and the response and we can do some operations before and after.
 
-//Routes
-console.log("Setting up user routes");
+
 
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/products", productsRouter)

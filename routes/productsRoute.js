@@ -1,6 +1,6 @@
 // we have to a have a specific route for a specific Model and a specific Controller
 import express from "express";
-import { createProductCtrl, getProductsCtrl } from "../controllers/productsCtrl.js";
+import { createProductCtrl, getProductsCtrl, getProductCtrl, updateProductCtrl } from "../controllers/productsCtrl.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 
 const productsRouter = express.Router();
@@ -10,6 +10,9 @@ const productsRouter = express.Router();
 //we can add multiple middlewares before getting to the Controller, in this case
 //for adding error handling to protect the route, isLoggedIn is a middleware and getUserProfileCtrl is the controler
 productsRouter.post("/create", isLoggedIn, createProductCtrl);
-productsRouter.get("/", getProductsCtrl)
+productsRouter.get("/", getProductsCtrl);
+productsRouter.get("/:id", getProductCtrl);
+productsRouter.put("/:id", isLoggedIn, updateProductCtrl);
+
 
 export default productsRouter;

@@ -9,7 +9,7 @@ export const isLoggedIn = (req, response, next) => {
     if(!decodedUser){
         throw new Error('Invalid/Expired token, please login again')
     } else {
-        //save the user into the req object
+        //save the user into the req object, where we create a property called .userAuthId and add that to the request body
         req.userAuthId = decodedUser?.id;
         next();
     }
