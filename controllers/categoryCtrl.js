@@ -84,3 +84,14 @@ export const updateCategoryCtrl = asyncHandler(async (req, res) => {
 
   });
   
+// @desc    delete category
+// @route   DELETE /api/categories/:id
+// @access  Private/Admin
+
+export const deleteCategoryCtrl = asyncHandler(async (req, res) => {
+    await Category.findByIdAndDelete(req.params.id);
+    res.json({
+      status: "success",
+      message: "Category deleted successfully",
+    });
+  });

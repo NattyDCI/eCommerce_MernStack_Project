@@ -148,7 +148,6 @@ export const getProductsCtrl = asyncHandler(async(req, res)=>{
 
 })
 
-
 // desc GET single product
 // @route GET /api/v1/products/:id
 // @access public
@@ -170,11 +169,9 @@ export const getProductCtrl = asyncHandler(async(req, res)=>{
 
 });
 
-
 // desc Update product
 // @route GET /api/v1/products/:id/update
 // @access Private/Admnin
-
 
 export const updateProductCtrl = asyncHandler(async(req, res) => {
 
