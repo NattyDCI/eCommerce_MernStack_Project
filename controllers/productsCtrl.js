@@ -1,3 +1,4 @@
+import Category from "../model/Category.js";
 import Product from "../model/Product.js";
 import asyncHandler from "express-async-handler";
 
@@ -8,7 +9,19 @@ import asyncHandler from "express-async-handler";
 export const createProductCtrl = asyncHandler (async (req,res) => {
     //the dinamic values we leave out.--> why?
 
-        const { name, dimensions, description, category, sizes, colors, price, totalQty, totalSold, brand, reviews, user } = req.body;
+        const { 
+            name, 
+            dimensions, 
+            description, 
+            category, 
+            sizes, 
+            colors, 
+            price, 
+            totalQty, 
+            totalSold, 
+            brand, 
+            reviews, 
+            user } = req.body;
 
 
         //name: name of the flower
@@ -20,8 +33,17 @@ export const createProductCtrl = asyncHandler (async (req,res) => {
         const productExists = await Product.findOne({ name });
 
         if( productExists ) {
-            throw new Error("product exists")
+            throw new Error("product already exists")
         } 
+
+        const categoryFound = await Category.findOne({
+            name: category });
+            
+            if (!categoryFound) {
+                throw new Error (
+                    "Category not found, please create category first or check category name"
+                );
+        }
         // create the product
 
         const product = await Product.create({
@@ -39,7 +61,10 @@ export const createProductCtrl = asyncHandler (async (req,res) => {
             user: req.userAuthId, 
         });
 
-        // push the product into category
+        // push the product into category found
+        categoryFound.products.push(product._id);
+        //resave
+        await categoryFound.save();
         // send response
         res.json({
             status:"success",
